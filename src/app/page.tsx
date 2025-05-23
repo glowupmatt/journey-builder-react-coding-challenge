@@ -3,12 +3,12 @@ import capLetters from "@/utils/capLetters";
 import { DialogTrigger, Dialog, DialogContent } from "@/components/ui/dialog";
 import PrefillContent from "@/components/customComponents/Prefill/PrefillContent";
 import PrefillHeader from "@/components/customComponents/Prefill/PrefillHeader";
+
 export default async function Home() {
   const res = await fetch("http://localhost:3000/api/fetch-data");
   const data: ActionBlueprintGraph = await res.json();
-
   return (
-    <main className="relative flex items-center justify-center min-w-screen min-h-screen bg-gray-300 overflow-scroll">
+    <>
       {data.nodes.map((node) => {
         return (
           <Dialog key={node.id}>
@@ -21,17 +21,19 @@ export default async function Home() {
               }}
             >
               <div>
-                <p className="text-xs text-gray-500">{capLetters(node.type)}</p>
+                <p className="text-start text-xs text-gray-500">
+                  {capLetters(node.type)}
+                </p>
                 <p className="font-medium text-black">{node.data.name}</p>
               </div>
             </DialogTrigger>
             <DialogContent>
               <PrefillHeader />
-              <PrefillContent />
+              <PrefillContent data={data} node={node} />
             </DialogContent>
           </Dialog>
         );
       })}
-    </main>
+    </>
   );
 }

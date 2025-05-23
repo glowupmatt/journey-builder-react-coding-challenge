@@ -1,12 +1,12 @@
 type Position = {
   x: number;
   y: number;
-}
+};
 
 type SLADuration = {
   number: number;
   unit: string;
-}
+};
 
 type NodeData = {
   id: string;
@@ -20,32 +20,32 @@ type NodeData = {
   sla_duration: SLADuration;
   approval_required: boolean;
   approval_roles: string[];
-}
+};
 
-type CustomNode = {
+export type CustomNode = {
   id: string;
   type: string;
   position: Position;
   data: NodeData;
-}
+};
 
 type Edge = {
   source: string;
   target: string;
-}
+};
 
 type PayloadField = {
   type: string;
   value: string;
-}
+};
 
 type DynamicFieldConfig = {
   selector_field: string;
   payload_fields: Record<string, PayloadField>;
   endpoint_id: string;
-}
+};
 
-type Form = {
+export type Form = {
   id: string;
   name: string;
   description: string;
@@ -57,7 +57,7 @@ type Form = {
   };
   ui_schema: {
     type: string;
-    elements: Array< {
+    elements: Array<{
       type: string;
       scope: string;
       label: string;
@@ -65,7 +65,7 @@ type Form = {
     }>;
   };
   dynamic_field_config: Record<string, DynamicFieldConfig>;
-}
+};
 
 export type ActionBlueprintGraph = {
   $schema: string;
@@ -79,4 +79,9 @@ export type ActionBlueprintGraph = {
   forms: Form[];
   branches: any[];
   triggers: any[];
-}
+};
+
+export type FormGroup = {
+  nodes: CustomNode[];
+  forms: Form[];
+};
